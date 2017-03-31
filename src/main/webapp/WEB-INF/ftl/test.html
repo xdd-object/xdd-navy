@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录页面</title>
+    <meta charset="utf-8">
+    <!-- <link rel="stylesheet" href="static/js/bootstrap-3.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/js/bootstrap-3.3.0/dist/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="static/js/jQuery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap-3.3.0/dist/js/bootstrap.min.js"></script> -->
+
+	<link rel="stylesheet" href="../../static/js/bootstrap-3.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/js/bootstrap-3.3.0/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../../static/js/bootstrapValidator/dist/css/bootstrapValidator.min.css">
+    <script type="text/javascript" src="../../static/js/jQuery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap-3.3.0/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrapValidator/dist/js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrapValidator/dist/js/language/zh_CN.js"></script>
+    <script type="text/javascript" src="../../static/js/echarts-2.2.7/build/dist/echarts.js"></script>
+</head>
+<style type="text/css">
+    body{
+        /*background: #7dc6d9;*/
+    }
+    .tree-default{
+        margin-top: 10%;
+        width:50px;
+        height:50px;
+    }
+    .tree-folder{
+        margin:0 auto;/* div居中 */
+        border-radius: 25px;
+        background: url("../../static/icon/icoses.jpg") -165px -215px no-repeat; /*背景图片位置，第一个参数控制左右，第二个参数控制上下*/
+    }
+
+</style>
+<script type="text/javascript">
+    $(function () {
+
+    });
+</script>
+<body>
+    <div class="tree-default tree-file"></div>
+    <div class="tree-default tree-folder"></div>
+    <div id="main" class="main" style="height: 100px; width: 300px"></div>
+
+    <div class="row" style="height: 500px">
+        <input id="file-Portrait1" type="file">
+    </div>
+
+    <div id="abc">
+        546f4sd64f
+        <input type="checkbox">
+        <h5>fsjldf</h5>
+    </div>
+    <input type="button" value="不显示" id="btn1">
+
+    <script type="text/javascript">
+        $("#btn1").click(function () {
+            $("#abc").attr("style", "display: none");
+        });
+
+    </script>
+
+
+
+</body>
+</html>

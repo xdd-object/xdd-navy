@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.xdd.shiro.mapper.UserMapper">
+
+    <resultMap id="baseResult" type="com.java.xdd.shiro.domain.User" autoMapping="true">
+        <result column="insert_time" property="insertTime"/>
+        <result column="insert_author" property="insertAuthor"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_author" property="updateAuthor"/>
+    </resultMap>
+
+    <parameterMap id="baseParams" type="com.java.xdd.shiro.domain.User">
+        <parameter property="insertTime" resultMap="insert_time"/>
+        <parameter property="insertAuthor" resultMap="insert_author"/>
+        <parameter property="updateTime" resultMap="update_time"/>
+        <parameter property="updateAuthor" resultMap="update_author"/>
+
+    </parameterMap>
+
+    <select id="get" resultMap="baseResult" parameterType="java.lang.Long">
+        SELECT * FROM user where id = #{id}
+    </select>
+    <insert id="save" parameterType="com.java.xdd.shiro.domain.User">
+        <selectKey keyProperty="id" resultType="java.lang.Long">
+            select last_insert_id()
+        </selectKey>
+        insert into user
+            (username,
+            password,
+            salt,
+            insert_author,
+            insert_time,
+            update_author,
+            update_time
+            )
+        values
+            (#{username},
+            #{password},
+            #{salt},
+            #{insertAuthor},
+            now(),
+            #{updateAuthor},
+            now()
+            )
+    </insert>
+
+    <select id="findSysUserByUsername" resultMap="baseResult" parameterType="java.lang.String">
+        SELECT * FROM user where username = #{username}
+    </select>
+
+
+
+</mapper>

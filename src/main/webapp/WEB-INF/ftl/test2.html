@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>登录页面</title>
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <!-- <link rel="stylesheet" href="static/js/bootstrap-3.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/js/bootstrap-3.3.0/dist/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="static/js/jQuery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap-3.3.0/dist/js/bootstrap.min.js"></script> -->
+
+   <!-- <link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/css/jquery-ui.min.css" media="screen" />
+-->    <link type="text/css" href="../../static/js/plupload-2.3.1/js/jquery.plupload.queue/css/jquery.plupload.queue.css"/>
+    <link type="text/css" href="../../static/js/plupload-2.3.1/js/jquery.ui.plupload/css/jquery.ui.plupload.css"/>
+
+    <script type="text/javascript" src="../../static/js/jQuery/jquery-1.11.1.min.js"></script>
+
+
+</head>
+<body>
+    <div id="uploader">
+        <p>Your browser doesn't have Flash, Silverlight or HTML5 support.</p>
+    </div>
+    <button id="toStop">暂停一下</button>
+    <button id="toStart">再次开始</button>
+
+
+    <script type="text/javascript">
+        /*$(function() {
+            $("#uploader").pluploadQueue({
+                runtimes : 'html5,flash,silverlight,html4',
+                url : "plupload",
+                // url : "pluploadservlet", //servlet版本
+                // Maximum file size
+                max_file_size : '1024mb',
+                chunk_size : '10mb',
+                // Resize images on clientside if we can
+                resize : {
+                    width : 200,
+                    height : 200,
+                    quality : 90,
+                    crop : true
+                },
+                // Specify what files to browse for
+                filters : [ {
+                    title : "Image files",
+                    extensions : "jpg,gif,png"
+                }, {
+                    title : "Zip files",
+                    extensions : "zip,rar"
+                } ],
+                // Rename files by clicking on their titles
+                rename : true,
+                // Sort files
+                sortable : true,
+                // Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
+                dragdrop : true,
+                // Views to activate
+                views : {
+                    list : true,
+                    thumbs : true, // Show thumbs
+                    active : 'thumbs'
+                },
+                // Flash settings
+                flash_swf_url : '../../static/js/plupload-2.3.1/Moxie.swf',
+                // Silverlight settings
+                silverlight_xap_url : '../../static/js/plupload-2.3.1/Moxie.xap'
+            });
+        });*/
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            // Initialize the widget when the DOM is ready
+            var uploader = $("#uploader").pluploadQueue({
+                // General settings
+                runtimes: 'html5,flash,silverlight,html4',
+                url: "http://localhost:2080/file/pluploadUpload", //服务器处理上传地址
+
+                max_file_size: '10000mb',//最大文件大小
+
+                chunk_size: '1mb',
+
+                // Resize images on clientside if we can
+                resize: {
+                    width: 200,
+                    height: 200,
+                    quality: 90,
+                    crop: true // crop to exact dimensions
+                },
+                filters: [ // 过滤器，规定哪些文件可以上传
+                    {title: "Image files", extensions: "jpg,gif,png"},
+                    {title: "Vedio files", extensions: "mp4,mkv"},
+                    {title: "Zip files", extensions: "zip,avi"}
+                ],
+
+                // Rename files by clicking on their titles
+                rename: true,
+
+                headers : {
+                    'Access-Control-Allow-Origin':true,
+                    'Origin':'http://localhost:2080'
+                },
+
+                // Sort files
+                sortable: true,
+                dragdrop: true, // 设置了可以拖拽文件至选定框
+
+                // Views to activate
+                views: {
+                    list: true,
+                    thumbs: true, // Show thumbs
+                    active: 'thumbs'
+                },
+
+                // Flash settings
+                flash_swf_url: '../../static/js/plupload-2.3.1/js/Moxie.swf',
+
+                // Silverlight settings
+                silverlight_xap_url: '../../static/js/plupload-2.3.1/js/Moxie.xap',
+
+            });
+
+            $("#toStop").on('click', function () {
+                uploader.stop();
+            });
+
+            $("#toStart").on('click', function () {
+                uploader.start();
+            });
+
+            uploader.bind('FilesAdded', function() {
+                // Autostart
+                setTimeout(uploader.start, 1000); // "detach" from the main thread
+            });
+        });
+        //var uploader = new plupload.Uploader({});
+    </script>
+
+    <script type="text/javascript" src="../../static/js/jQuery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../static/js/plupload-2.3.1/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="../../static/js/plupload-2.3.1/js/i18n/zh_CN.js"></script>
+    <script type="text/javascript" src="../../static/js/plupload-2.3.1/js/jquery.ui.plupload/jquery.ui.plupload.js"></script>
+    <script type="text/javascript" src="../../static/js/plupload-2.3.1/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+</body>
+</html>
+

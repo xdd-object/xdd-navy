@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>退出页面</title>
+    <meta charset="utf-8">
+    <!-- <link rel="stylesheet" href="static/js/bootstrap-3.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/js/bootstrap-3.3.0/dist/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="static/js/jQuery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="static/js/bootstrap-3.3.0/dist/js/bootstrap.min.js"></script> -->
+
+	<link rel="stylesheet" href="../../static/js/bootstrap-3.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/js/bootstrap-3.3.0/dist/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="../../static/js/jQuery/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap-3.3.0/dist/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .carousel{
+            margin:0 auto;/* div居中 */
+            width: 200px;
+        }
+        /*.btn{
+            margin:0 auto;
+            display:block;
+        }*/
+        .modal{
+            margin-top: 200px;
+        }
+    </style>
+
+</head>
+<body>
+${name}<br/>
+${msg}<br/>
+<!--<img id="herd-img" src="http://120.76.161.248/image-server//appImages/20161230//20161230154252160589882817017.jpeg">-->
+数据：<input type="text" id="btn2"><div id="btn1Error"></div><br/>
+<input type="button" id="btn1" value="点击按钮"><br/>
+<p>
+    <button type="button" class="btn btn-lg btn-default">Default</button>
+    <button type="button" class="btn btn-lg btn-primary">Primary</button>
+    <button type="button" class="btn btn-lg btn-success">Success</button>
+    <button type="button" class="btn btn-lg btn-info">Info</button>
+    <button type="button" class="btn btn-lg btn-warning">Warning</button>
+    <button type="button" class="btn btn-lg btn-danger">Danger</button>
+    <button type="button" class="btn btn-lg btn-link">Link</button>
+</p>
+
+<br/><br/><br/><br/>
+
+<h2 class="sub-header">Section title</h2>
+<div class="table-responsive">
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Header</th>
+        <th>Header</th>
+        <th>Header</th>
+        <th>Header</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1,001</td>
+        <td>Lorem</td>
+        <td>ipsum</td>
+        <td>dolor</td>
+        <td>sit</td>
+    </tr>
+    <tr>
+        <td>1,002</td>
+        <td>amet</td>
+        <td>consectetur</td>
+        <td>adipiscing</td>
+        <td>elit</td>
+    </tr>
+    <tr>
+        <td>1,003</td>
+        <td>Integer</td>
+        <td>nec</td>
+        <td>odio</td>
+        <td>Praesent</td>
+    </tr>
+    <tr>
+        <td>1,003</td>
+        <td>libero</td>
+        <td>Sed</td>
+        <td>cursus</td>
+        <td>ante</td>
+    </tr>
+    <tr>
+        <td>1,004</td>
+        <td>dapibus</td>
+        <td>diam</td>
+        <td>Sed</td>
+        <td>nisi</td>
+    </tr>
+    <tr>
+        <td>1,005</td>
+        <td>Nulla</td>
+        <td>quis</td>
+        <td>sem</td>
+        <td>at</td>
+    </tr>
+    <tr>
+        <td>1,006</td>
+        <td>nibh</td>
+        <td>elementum</td>
+        <td>imperdiet</td>
+        <td>Duis</td>
+    </tr>
+    <tr>
+        <td>1,007</td>
+        <td>sagittis</td>
+        <td>ipsum</td>
+        <td>Praesent</td>
+        <td>mauris</td>
+    </tr>
+    </tbody>
+</table>
+</div>
+
+<div id="myCarousel" class="carousel slide">
+    <!-- 轮播（Carousel）指标 -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <!-- 轮播（Carousel）项目 -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="../../static/icon/icoses.jpg" alt="First slide">
+            <div class="carousel-caption">标题 1</div>
+        </div>
+        <div class="item">
+            <img src="../../static/icon/icoses.jpg" alt="Second slide">
+            <div class="carousel-caption">标题 2</div>
+        </div>
+        <div class="item">
+            <img src="../../static/icon/icoses.jpg" alt="Third slide">
+            <div class="carousel-caption">标题 3</div>
+        </div>
+    </div>
+    <!-- 轮播（Carousel）导航 -->
+    <a class="carousel-control left" href="#myCarousel"
+       data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel"
+       data-slide="next">&rsaquo;</a>
+</div>
+
+
+
+<h2>创建模态框（Modal）</h2>
+<!-- 按钮触发模态框 -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
+
+<script type="text/javascript">
+    $("#btn1").click(function () {
+        var btn2 = $("#btn2").val();
+        if(btn2 == null || btn2 == ''){
+            console.error("没有填入数据！");
+            $("#btn1Error").text("没有填入数据！");
+        }else if (btn2.trim() == ''){
+            console.error("填入的是空格！");
+            $("#btn1Error").text("填入的是空格！");
+        }
+    });
+
+    //控制轮播图
+    $("#myCarousel").carousel({
+        interval: 1000
+    });
+
+    //模态框
+    $('#myModal').modal({
+        show:false,
+        keyboard: false,
+        backdrop:true
+    })
+</script>
+</body>
+</html>

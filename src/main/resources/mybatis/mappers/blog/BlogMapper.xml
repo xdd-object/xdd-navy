@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.xdd.blog.mapper.BlogMapper">
+   <resultMap id="baseMap" type="com.java.xdd.blog.domain.Blog" autoMapping="true">
+   </resultMap>
+
+   <!-- 根据id获取博客 -->
+   <select id="getBlog" parameterType="com.java.xdd.blog.domain.Blog" resultMap="baseMap">
+    SELECT 	blog_id,
+       blog_title,
+       blog_content,
+       file_id,
+       insert_time,
+       insert_author,
+       update_author,
+       update_time,
+       blog_status,
+       inspect_status
+	FROM
+       blog a
+    where
+      a.blog_status = 1 and a.inspect_status = 1 and a.blog_id = #{blogId}
+   </select>
+</mapper>
