@@ -1,6 +1,5 @@
 package com.java.xdd.test;
 
-import detection.Detector;
 import org.junit.Test;
 
 import javax.imageio.ImageIO;
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public class Test2 {
 
-    @Test
+    /*@Test
     public void findFaces() throws Exception {
         String fileName1 = "G:\\xdd\\aa\\file\\1.jpg";
         String fileName2 = "G:\\xdd\\aa\\file\\2.jpg";
@@ -53,15 +52,15 @@ public class Test2 {
 
     //画图
     public void aa(List<Rectangle> res,BufferedImage bi1,int name) throws Exception{
-        /** 获取该图片2D画笔 */
+        *//** 获取该图片2D画笔 *//*
         Graphics2D g = (Graphics2D) bi1.getGraphics();
-        /** 设置画笔粗细 */
+        *//** 设置画笔粗细 *//*
         g.setStroke(new BasicStroke(1.0f));
-        /** 设置画笔颜色 */
+        *//** 设置画笔颜色 *//*
         g.setColor(Color.RED);
-        /** 消除锯齿 */
+        *//** 消除锯齿 *//*
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        /** 让活动的节点高亮显示(绘制一个圆角矩形) */
+        *//** 让活动的节点高亮显示(绘制一个圆角矩形) *//*
         for (Rectangle graphicInfo : res) {
             g.drawRoundRect((int) graphicInfo.getX(), //开始位置的X坐标
                     (int) graphicInfo.getY(), //开始位置的Y坐标
@@ -85,5 +84,7 @@ public class Test2 {
         if(res.size() > 0) aa(res,bi5,5);
 
 
-    }
+    }*/
+
+
 }
