@@ -5,6 +5,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,8 @@ public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor{
             ServerHttpResponse response, WebSocketHandler wsHandler,  
             Map<String, Object> attributes) throws Exception {  
         System.out.println("握手之前");
+        Principal principal = request.getPrincipal();
+
         return super.beforeHandshake(request, response, wsHandler, attributes);  
     }  
 

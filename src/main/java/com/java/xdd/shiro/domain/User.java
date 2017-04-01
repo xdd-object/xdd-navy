@@ -2,10 +2,11 @@ package com.java.xdd.shiro.domain;
 
 
 import com.java.xdd.common.domain.BaseDomain;
+import com.java.xdd.common.domain.BaseUser;
 
 import java.io.Serializable;
 
-public class User extends BaseDomain implements Serializable{
+public class User extends BaseDomain implements Serializable, BaseUser{
     private static final long serialVersionUID = -1431548491431057871L;
 
     private Long id;

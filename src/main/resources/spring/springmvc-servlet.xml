@@ -76,10 +76,10 @@
 	<mvc:resources location="/static/" mapping="/static/**"/>
 
 	<!--websocket核心配置-->
-	<bean id="websocket" class="com.java.xdd.websocket1.handler.WebsocketEndPoint"/>
+	<bean id="websocket1" class="com.java.xdd.websocket1.handler.WebsocketEndPoint"/>
 
 	<websocket:handlers>
-		<websocket:mapping path="/websocket" handler="websocket"/>
+		<websocket:mapping path="/websocket1" handler="websocket1"/>
 		<websocket:handshake-interceptors>
 			<bean class="com.java.xdd.websocket1.interceptor.HandshakeInterceptor"/>
 		</websocket:handshake-interceptors>

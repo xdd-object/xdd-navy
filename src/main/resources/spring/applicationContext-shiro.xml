@@ -36,8 +36,8 @@
 				/logout = anon
 				/toRegister = anon
 				/register = anon
-				<!--/** = authc-->
-				/** = anon
+				/** = authc
+				<!--/** = anon-->
 				<!-- /** = anon所有url都可以匿名访问 -->
 
 			</value>

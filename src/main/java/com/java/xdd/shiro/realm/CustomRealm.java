@@ -1,6 +1,7 @@
 package com.java.xdd.shiro.realm;
 
 
+import com.java.xdd.common.domain.BaseUser;
 import com.java.xdd.common.util.AESUtil;
 import com.java.xdd.shiro.domain.Permission;
 import com.java.xdd.shiro.domain.User;
@@ -67,7 +68,7 @@ public class CustomRealm extends AuthorizingRealm{
         // 如果查询到返回认证信息AuthenticationInfo
 
         //activeUser就是用户身份信息
-        User user2 = new User();
+        BaseUser user2 = new User();
 
         user2.setId(user.getId());
         user2.setUsername(user.getUsername());
