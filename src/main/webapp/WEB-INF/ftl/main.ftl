@@ -16,7 +16,7 @@
     var websocket = null;
 
     function conn() {
-        websocket = new WebSocket("ws://localhost:2080/websocket1");
+        websocket = new WebSocket("ws://localhost:2080/websocket");
 
         websocket.onopen = function () {
             setMessageInnerHTML("连接成功！");

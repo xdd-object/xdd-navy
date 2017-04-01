@@ -30,6 +30,7 @@
 		</property>
 	</bean>
 
+	<!--文件上传-->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<!-- set the max upload size100MB -->
 		<property name="maxUploadSize">

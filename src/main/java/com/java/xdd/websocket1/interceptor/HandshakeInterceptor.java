@@ -5,6 +5,8 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 //拦截器
@@ -23,9 +25,10 @@ public class HandshakeInterceptor extends HttpSessionHandshakeInterceptor{
     @Override  
     public void afterHandshake(ServerHttpRequest request,  
             ServerHttpResponse response, WebSocketHandler wsHandler,  
-            Exception ex) {  
+            Exception ex) {
+        //Collections
         System.out.println("握手之后");
         super.afterHandshake(request, response, wsHandler, ex);  
-    }  
+    }
   
 }  

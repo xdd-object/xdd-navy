@@ -3,6 +3,7 @@ package com.java.xdd.websocket1.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java.xdd.websocket1.handler.WebsocketEndPoint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +15,16 @@ import java.util.Map;
 
 @Controller
 public class MySocketController1 {
+
+    @Autowired
+    private WebsocketEndPoint websocketEndPoint;
+
     /**
      * 注入发送消息类实例
      * @return
      */
-    @Bean
     public WebsocketEndPoint getWebsocketEndPoint() {
-        return new WebsocketEndPoint();
+        return this.websocketEndPoint;
     }
 
 

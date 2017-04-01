@@ -2,6 +2,7 @@ package com.java.xdd.common.domain;
 
 import com.java.xdd.common.util.DateUtil;
 
+import javax.persistence.Column;
 import java.util.Date;
 
 /**
