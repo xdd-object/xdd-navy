@@ -41,26 +41,28 @@ public class WebsocketEndPoint extends TextWebSocketHandler {
 
         Class clz = principal.getClass();
         Method clz1 = clz.getDeclaredMethod("getObject");
-        Object invoke = clz1.invoke(principal);
-
-
-        if (invoke instanceof BaseUser){
-            System.out.println("---------------------");
+        Object invoke = null;
+        try {
+            clz1.setAccessible(true);
+            invoke = clz1.invoke(principal);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
-        if (invoke instanceof PrincipalCollection){
+
+        if (invoke instanceof User){
             System.out.println("---------------------");
+            User user = (User) invoke;
+            System.out.println(user.getId());
+            System.out.println(user.getSalt());
+            System.out.println(user.getPassword());
+            System.out.println(user.getUsername());
+
+
         }
 
-        String name = principal.getName();
-        String s = principal.toString();
-
-
-       /* Class clz = Class.forName(name);
-        Method[] methods = clz.getMethods();
-        System.out.println(methods);*/
-
-        super.handleTextMessage(session, message);  
+        super.handleTextMessage(session, message);
         TextMessage returnMessage = new TextMessage(message.getPayload()+" received at server");  
         session.sendMessage(returnMessage);
 
