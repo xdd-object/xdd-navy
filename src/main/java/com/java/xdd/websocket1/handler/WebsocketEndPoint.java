@@ -1,7 +1,9 @@
 package com.java.xdd.websocket1.handler;
 
+import com.alibaba.fastjson.JSONObject;
 import com.java.xdd.common.domain.BaseUser;
 import com.java.xdd.shiro.domain.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.slf4j.Logger;
@@ -28,68 +30,97 @@ public class WebsocketEndPoint extends TextWebSocketHandler {
     //StandardWebSocketClient
 
     //改造 {"房间号":{"用户id":"session", "用户id":"session"}}
-    private static final Map<String, Map<String, WebSocketSession>> users = new HashMap<>();
+    private static final Map<String, Map<Long, WebSocketSession>> users = new HashMap<>();
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        Map<String, Object> attributes = session.getAttributes();
-        Set<Map.Entry<String, Object>> entries = attributes.entrySet();
-        for (Map.Entry<String, Object> entry : entries) {
-            System.out.println(entry.getKey());
-        }
-        Principal principal = session.getPrincipal();
-
-        Class clz = principal.getClass();
-        Method clz1 = clz.getDeclaredMethod("getObject");
-        Object invoke = null;
-        try {
-            clz1.setAccessible(true);
-            invoke = clz1.invoke(principal);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-
-
-        if (invoke instanceof User){
-            System.out.println("---------------------");
-            User user = (User) invoke;
-            System.out.println(user.getId());
-            System.out.println(user.getSalt());
-            System.out.println(user.getPassword());
-            System.out.println(user.getUsername());
-
-
-        }
-
         super.handleTextMessage(session, message);
-        TextMessage returnMessage = new TextMessage(message.getPayload()+" received at server");  
-        session.sendMessage(returnMessage);
+        Map<String, Object> attributes = session.getAttributes();
+        System.out.println(attributes);
 
-        StandardWebSocketClient client = new StandardWebSocketClient();
+        String payload = message.getPayload(); //接收到的消息
+
+        User user = this.getSessionUser(session);
+        logger.debug("用户【{}】发送的消息【{}】!!", user, payload);
+
+        Map<String, Object> map = JSONObject.parseObject(payload, Map.class);
+        Object sendTo = map.get("sendTo");
+        map.put("sendTo", user.getId());
+        map.put("sendToUserId", user.getUsername());
+        if (null != sendTo && StringUtils.isNotBlank(sendTo.toString())) {
+            Long sendUserId = Long.valueOf(sendTo.toString());
+            Map<Long, WebSocketSession> sessions = users.get("0");
+            WebSocketSession sendSeesion = sessions.get(sendUserId);
+            if (null != sendSeesion && sendSeesion.isOpen()) { //用户在线
+                TextMessage returnMessage = new TextMessage(JSONObject.toJSONString(map));
+                sendSeesion.sendMessage(returnMessage);//发送消息
+            }
+        }
+
+
+        TextMessage returnMessage = new TextMessage(message.getPayload()+" received at server");
+        //session.sendMessage(returnMessage); //发送消息
+
+        //StandardWebSocketClient client = new StandardWebSocketClient();
     }
 
     //用户进入系统监听
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        logger.info("用户【{}】成功进入了系统。。。", session);
+        Map<Long, WebSocketSession> sessions = users.get("0"); //非群聊房间
+        if (null == sessions) {
+            sessions = new HashMap<>();
+            users.put("0", sessions);
+        }
+        User user = this.getSessionUser(session);
+        sessions.put(user.getId(), session);
+
+
+        logger.info("用户【{}】成功进入了系统。。。", this.getSessionUser(session));
         System.out.println("成功进入了系统。。。");
     }
 
     //后台错误信息处理方法
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        logger.error("后台出错了！报错原因【{}】，来自用户【{}】", exception.getMessage(), session);
+        logger.error("后台出错了！报错原因【{}】，来自用户【{}】", exception.getMessage(), this.getSessionUser(session));
         System.out.println("后台出错了！");
     }
 
     //用户退出后的处理，不如退出之后，要将用户信息从websocket的session中remove掉，这样用户就处于离线状态了，也不会占用系统资源
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        logger.info("用户【{}】退出系统！！！退出原因【{}】", session, closeStatus);
-        if (session.isOpen()) users.remove(session);
+        User user = this.getSessionUser(session);
+        logger.info("用户【{}】退出系统！！！退出原因【{}】", user, closeStatus);
+        if (session.isOpen()) {
+            users.get("0").remove(user.getId());
+        }
         System.out.println("安全退出了系统");
 
+    }
+
+    private User getSessionUser(WebSocketSession session){
+        if (null == session) return null;
+        Principal principal = session.getPrincipal();
+        if (null == principal) return null;
+        Class clz = principal.getClass();
+        Object invoke = null;
+        try {
+            Method method = clz.getDeclaredMethod("getObject"); //获取登录的用户对象
+            method.setAccessible(true);
+            invoke = method.invoke(principal);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+        User user = null;
+        if (invoke instanceof User){
+            user = (User) invoke;
+            System.out.println(user);
+            logger.debug("登录的用户是【{}】!!!", user);
+        }
+        return user;
     }
 
 

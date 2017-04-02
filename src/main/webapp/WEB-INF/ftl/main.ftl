@@ -4,7 +4,7 @@
     <title>Java后端WebSocket的Tomcat实现</title>
 </head>
 <body>
-    Welcome<br/><input id="text" type="text"/>
+    Welcome<br/><input id="text" type="text"/>发送给：<input id="sendTo" type="text"/>
     <button onclick="conn()">连接</button>
     <button onclick="send()">发送消息</button>
     <hr/>
@@ -23,8 +23,9 @@
             console.log("执行onopen方法！");
         };
         websocket.onmessage = function (event) {
-            setMessageInnerHTML("执行onmessage方法");
-            console.log(event.data);
+            console.log("接收内容为-->",event.data);
+            var obj = JSON.parse(event.data);
+            setMessageInnerHTML(obj.sendTo+"-"+obj.sendToUserId + "回复：" + obj.message);
             console.log("执行onmessage方法！");
         };
         websocket.onclose = function (event) {
@@ -49,7 +50,16 @@
     //发送消息
     function send() {
         var message = document.getElementById('text').value;
-        websocket.send(message);
+        var sendTo = document.getElementById('sendTo').value;
+        var msgObject = {
+            message : message,
+            sendTo : sendTo,
+            from : 1
+        };
+        var msg = JSON.stringify(msgObject);
+        console.log("发送内容为-->",msg);
+        setMessageInnerHTML("我：" + message);
+        websocket.send(msg);
     }
 </script>
 </html>

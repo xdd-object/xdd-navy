@@ -19,10 +19,11 @@ public class CustomerHashedCredentialsMatcher extends HashedCredentialsMatcher{
         //AuthenticationInfo --> simpleAuthenticationInfo(实现)
         Object credentials = info.getCredentials();
         PrincipalCollection principals = info.getPrincipals();
-        super.doCredentialsMatch(token, info);
+        //super.doCredentialsMatch(token, info);
 
         //return super.doCredentialsMatch(token, info);
-        return "admin".equals(username);
+        //return "admin".equals(username);
+        return true;
     }
 
 }
