@@ -4,6 +4,9 @@ import com.github.abel533.mapper.Mapper;
 import com.java.xdd.shiro.domain.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
+import java.util.List;
+
 public interface UserMapper extends Mapper<User>{
 
     /**
@@ -26,5 +29,11 @@ public interface UserMapper extends Mapper<User>{
      * @return
      */
     User findSysUserByUsername(@Param("username") String username);
+
+    List<User> findByInsertTime(@Param("insertTime")Date insertTime);
+
+
+
+    User findById(@Param("password")String password);
 
 }

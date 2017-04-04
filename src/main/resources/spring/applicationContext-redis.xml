@@ -36,6 +36,7 @@
 				<bean name="slaver" class="redis.clients.jedis.JedisShardInfo">
 					<constructor-arg index="0" value="${redis.host}" />
 					<constructor-arg index="1" value="${redis.port}" type="int" />
+					<property name="password" value="${redis.password}"/>
 				</bean>
 				<!-- 配置集群 -->
 				<!--<bean name="master" class="redis.clients.jedis.JedisShardInfo">

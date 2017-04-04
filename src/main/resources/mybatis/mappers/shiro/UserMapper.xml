@@ -7,6 +7,21 @@
         <result column="insert_author" property="insertAuthor"/>
         <result column="update_time" property="updateTime"/>
         <result column="update_author" property="updateAuthor"/>
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+    </resultMap>
+
+    <resultMap id="resultMap" type="com.java.xdd.shiro.domain.User" autoMapping="true">
+        <result column="insert_time" property="insertTime"/>
+        <result column="insert_author" property="insertAuthor"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="update_author" property="updateAuthor"/>
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
     </resultMap>
 
     <parameterMap id="baseParams" type="com.java.xdd.shiro.domain.User">
@@ -47,7 +62,5 @@
     <select id="findSysUserByUsername" resultMap="baseResult" parameterType="java.lang.String">
         SELECT * FROM user where username = #{username}
     </select>
-
-
 
 </mapper>
