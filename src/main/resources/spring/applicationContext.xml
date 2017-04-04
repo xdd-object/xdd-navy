@@ -5,11 +5,11 @@
 	   xmlns:aop="http://www.springframework.org/schema/aop"
 		xmlns:p="http://www.springframework.org/schema/p"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
-			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 			http://www.springframework.org/schema/aop
-		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 			http://www.springframework.org/schema/context
-			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<!-- 注解扫描 -->
 	<context:component-scan base-package="com.java.xdd" />
@@ -42,9 +42,23 @@
 		<property name="defaultEncoding" value="UTF-8"/>
 	</bean>
 
+	<!--spring发送邮件-->
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"
+		  p:defaultEncoding="utf-8"
+		  p:host="smtp.163.com"
+		  p:username="fkjava8888"
+		  p:password="fkjava888">
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+	</bean>
+
 	<!-- 导入其他Spring管理的资源 -->
 	<import resource="classpath:spring/applicationContext-mybatis.xml"/>
 	<import resource="classpath:spring/applicationContext-shiro.xml"/>
 	<import resource="classpath:spring/applicationContext-redis.xml"/>
+	<import resource="classpath:spring/applicationContext-job.xml"/>
 
 </beans>

@@ -6,7 +6,7 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
 			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 			http://www.springframework.org/schema/context
-			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+			http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
 	<!-- web.xml中shiro的filter对应的bean -->
 	<!-- Shiro 的Web过滤器 -->
@@ -36,8 +36,10 @@
 				/logout = anon
 				/toRegister = anon
 				/register = anon
-				<!--/** = authc-->
-				/** = anon
+				<!--二维码相关-->
+				/qrcode/** = anon
+				/** = authc
+				<!--/** = anon-->
 				<!-- /** = anon所有url都可以匿名访问 -->
 
 			</value>
