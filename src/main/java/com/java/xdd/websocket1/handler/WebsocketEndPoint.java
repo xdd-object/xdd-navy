@@ -2,6 +2,7 @@ package com.java.xdd.websocket1.handler;
 
 import com.alibaba.fastjson.JSONObject;
 import com.java.xdd.common.domain.BaseUser;
+import com.java.xdd.common.util.PrincipalUtil;
 import com.java.xdd.shiro.domain.User;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -102,25 +103,7 @@ public class WebsocketEndPoint extends TextWebSocketHandler {
     private User getSessionUser(WebSocketSession session){
         if (null == session) return null;
         Principal principal = session.getPrincipal();
-        if (null == principal) return null;
-        Class clz = principal.getClass();
-        Object invoke = null;
-        try {
-            Method method = clz.getDeclaredMethod("getObject"); //获取登录的用户对象
-            method.setAccessible(true);
-            invoke = method.invoke(principal);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
-        }
-
-        User user = null;
-        if (invoke instanceof User){
-            user = (User) invoke;
-            System.out.println(user);
-            logger.debug("登录的用户是【{}】!!!", user);
-        }
-        return user;
+        return PrincipalUtil.getUserPrincipal(principal);
     }
 
 
