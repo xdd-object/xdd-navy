@@ -38,8 +38,8 @@
 				/register = anon
 				<!--二维码相关-->
 				/qrcode/** = anon
-				/** = authc
-				<!--/** = anon-->
+				<!--/** = authc-->
+				/** = anon
 				<!-- /** = anon所有url都可以匿名访问 -->
 
 			</value>

@@ -27,7 +27,7 @@
 	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail" ref="testJob" />
 		<!-- 每5秒执行一次 -->
-		<property name="cronExpression" value="0/5 * * * * ?" />
+		<property name="cronExpression" value="0 0/5 * * * ?" />
 	</bean>
 
 	<!-- 定义调度器 -->

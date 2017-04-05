@@ -5,10 +5,12 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.java.xdd.common.constant.CommonConstant;
 import com.java.xdd.common.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -71,8 +73,7 @@ public class QrcodeController {
 
         content = content.replace("{key}", "key=");
         content = content.replace("{value}", "&value=");
-
-        content = "http://192.168.1.103:5080/qrcode/scanQrcode?key=key1&value=http://www.baidu.com";
+        content = CommonConstant.BASEURL + content;
 
         BitMatrix matrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, hints);
 
@@ -87,7 +88,7 @@ public class QrcodeController {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 /** 获取一个像点，判断是白色点还是黑色的点  true : 黑色点   false: 白色点 */
-                int rgb = matrix.get(x, y) ? 0x008000 : 0xffffff;
+                int rgb = matrix.get(x, y) ? 0x000000 : 0xffffff;
                 image.setRGB(x, y, rgb);
             }
         }
@@ -136,7 +137,6 @@ public class QrcodeController {
                                        HttpServletResponse response,
                                        @RequestParam(value = "key", defaultValue = "key") String key) {
 
-        key = "key1";
         String value = redisService.get(key);
 
         logger.debug("取出的key【{}】，value【{}】", key, value);

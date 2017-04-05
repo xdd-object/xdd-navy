@@ -25,7 +25,7 @@ public class RedisTest {
 
     @Test
     public void test1(){
-        String key = "ORDER_INFO_DATA_1";
+        String key = "pramas_1";
         String value = shardedJedis.get(key);
         System.out.println(value);
     }

@@ -11,3 +11,5 @@ function uuid() {
 	var uuid = s.join("");
 	return uuid;
 }
+
+var baseUrl = "http://127.0.0.1:2080";

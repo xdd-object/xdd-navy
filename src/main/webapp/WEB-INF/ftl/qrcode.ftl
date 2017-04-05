@@ -31,18 +31,19 @@
                 var value = $("#value").val();
                 var content = $("#content").val();
 
-                var src = "http://127.0.0.1:5080/qrcode/qrcode?content=" + content + "?{key}" + key +"{value}" + value;
+                var src = baseUrl + "/qrcode/qrcode?content=" + content + "?{key}" + key +"{value}" + value;
 
                 $("#qrcodeImg").attr("src", src);
 
                 console.log(src);
+                console.log(uuid());
                 var interval = window.setInterval(showalert, 2000);
 
                 function showalert() {
-                    console.log("http://127.0.0.1:5080/qrcode/qrcodeContent?key=" + key);
+                    console.log(baseUrl + "/qrcode/qrcodeContent?key=" + key);
                     $.ajax({
                         type: "GET",
-                        url: "http://127.0.0.1:5080/qrcode/qrcodeContent?key=" + key,
+                        url: baseUrl + "/qrcode/qrcodeContent?key=" + key,
                         dataType: "json",
                         success: function(data){
                             console.log(data);
