@@ -1,6 +1,7 @@
 package com.java.xdd.common.domain;
 
 import com.java.xdd.common.util.DateUtil;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class BaseDomain implements java.io.Serializable{
         return insertTime;
     }
     public String getInsertTimeStr() {
+        if (null == insertTime) return null;
         return DateUtil.formatDate(insertTime, null);
     }
 
@@ -45,6 +47,7 @@ public class BaseDomain implements java.io.Serializable{
         return updateTime;
     }
     public String getUpdateTimeStr() {
+        if (null == updateTime) return null;
         return DateUtil.formatDate(updateTime, null);
     }
 

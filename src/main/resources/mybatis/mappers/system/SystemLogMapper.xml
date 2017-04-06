@@ -11,6 +11,13 @@
         <result column="update_author" property="updateAuthor"/>
         <result column="insert_time" property="insertTime"/>
         <result column="update_time" property="updateTime"/>
+        <result column="url" property="url"/>
+        <result column="method_start_time" property="methodStartTime"/>
+        <result column="method_end_time" property="methodEndTime"/>
+        <result column="params" property="params"/>
+        <result column="result" property="result"/>
+        <result column="throwable" property="throwable"/>
+        <result column="throwable_message" property="throwableMessage"/>
     </resultMap>
 
     <!--auto generated Code-->
@@ -22,29 +29,48 @@
         `insert_author`,
         `update_author`,
         `insert_time`,
-        `update_time`
+        `update_time`,
+        `url`,
+        `method_start_time`,
+        `method_end_time`,
+        `params`,
+        `result`,
+        `throwable`,
+        `throwable_message`
     </sql>
 
     <!--auto generated Code-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.systemLogId">
         INSERT INTO system_log (
-            `id`,
             `ip`,
             `method`,
             `user_id`,
             `insert_author`,
             `update_author`,
             `insert_time`,
-            `update_time`
+            `update_time`,
+            `url`,
+            `method_start_time`,
+            `method_end_time`,
+            `params`,
+            `result`,
+            `throwable`,
+            `throwable_message`
         ) VALUES (
-            #{pojo.systemLogId},
             #{pojo.ip},
             #{pojo.method},
             #{pojo.userId},
             #{pojo.insertAuthor},
             #{pojo.updateAuthor},
             #{pojo.insertTime},
-            #{pojo.updateTime}
+            #{pojo.updateTime},
+            #{pojo.url},
+            #{pojo.methodStartTime},
+            #{pojo.methodEndTime},
+            #{pojo.params},
+            #{pojo.result},
+            #{pojo.throwable},
+            #{pojo.throwableMessage}
         )
     </insert>
 
@@ -52,7 +78,6 @@
     <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.systemLogId">
         INSERT INTO system_log
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.systemLogId!=null"> `id`,</if>
             <if test="pojo.ip!=null"> `ip`,</if>
             <if test="pojo.method!=null"> `method`,</if>
             <if test="pojo.userId!=null"> `user_id`,</if>
@@ -60,35 +85,54 @@
             <if test="pojo.updateAuthor!=null"> `update_author`,</if>
             <if test="pojo.insertTime!=null"> `insert_time`,</if>
             <if test="pojo.updateTime!=null"> `update_time`,</if>
+            <if test="pojo.url!=null"> `url`,</if>
+            <if test="pojo.methodStartTime!=null"> `method_start_time`,</if>
+            <if test="pojo.methodEndTime!=null"> `method_end_time`,</if>
+            <if test="pojo.params!=null"> `params`,</if>
+            <if test="pojo.result!=null"> `result`,</if>
+            <if test="pojo.throwable!=null"> `throwable`,</if>
+            <if test="pojo.throwableMessage!=null"> `throwable_message`</if>
         </trim>
         VALUES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="pojo.systemLogId!=null">#{pojo.systemLogId},</if>
-            <if test="pojo.ip!=null">#{pojo.ip},</if>
-            <if test="pojo.method!=null">#{pojo.method},</if>
-            <if test="pojo.userId!=null">#{pojo.userId},</if>
-            <if test="pojo.insertAuthor!=null">#{pojo.insertAuthor},</if>
-            <if test="pojo.updateAuthor!=null">#{pojo.updateAuthor},</if>
-            <if test="pojo.insertTime!=null">#{pojo.insertTime},</if>
-            <if test="pojo.updateTime!=null">#{pojo.updateTime},</if>
+            <if test="pojo.ip!=null"> #{pojo.ip},</if>
+            <if test="pojo.method!=null"> #{pojo.method},</if>
+            <if test="pojo.userId!=null"> #{pojo.userId},</if>
+            <if test="pojo.insertAuthor!=null"> #{pojo.insertAuthor},</if>
+            <if test="pojo.updateAuthor!=null"> #{pojo.updateAuthor},</if>
+            <if test="pojo.insertTime!=null"> #{pojo.insertTime},</if>
+            <if test="pojo.updateTime!=null"> #{pojo.updateTime},</if>
+            <if test="pojo.url!=null"> #{pojo.url},</if>
+            <if test="pojo.methodStartTime!=null"> #{pojo.methodStartTime},</if>
+            <if test="pojo.methodEndTime!=null"> #{pojo.methodEndTime},</if>
+            <if test="pojo.params!=null"> #{pojo.params},</if>
+            <if test="pojo.result!=null"> #{pojo.result},</if>
+            <if test="pojo.throwable!=null"> #{pojo.throwable},</if>
+            <if test="pojo.throwableMessage!=null"> #{pojo.throwableMessage}</if>
         </trim>
     </insert>
 
     <!--auto generated Code-->
     <insert id="insertList">
-        INSERT INTO system_log (
+        INSERT INTO system_log(
         <include refid="all_column"/>
         )VALUES
         <foreach collection="pojos" item="pojo" index="index" separator=",">
             (
-            #{pojo.systemLogId},
             #{pojo.ip},
             #{pojo.method},
             #{pojo.userId},
             #{pojo.insertAuthor},
             #{pojo.updateAuthor},
             #{pojo.insertTime},
-            #{pojo.updateTime}
+            #{pojo.updateTime},
+            #{pojo.url},
+            #{pojo.methodStartTime},
+            #{pojo.methodEndTime},
+            #{pojo.params},
+            #{pojo.result},
+            #{pojo.throwable},
+            #{pojo.throwableMessage}
             )
         </foreach>
     </insert>
@@ -97,14 +141,20 @@
     <update id="update">
         UPDATE system_log
         <set>
-            <if test="pojo.systemLogId != null"> `id` = #{pojo.systemLogId}, </if>
-            <if test="pojo.ip != null"> `ip` = #{pojo.ip}, </if>
-            <if test="pojo.method != null"> `method` = #{pojo.method}, </if>
-            <if test="pojo.userId != null"> `user_id` = #{pojo.userId}, </if>
-            <if test="pojo.insertAuthor != null"> `insert_author` = #{pojo.insertAuthor}, </if>
-            <if test="pojo.updateAuthor != null"> `update_author` = #{pojo.updateAuthor}, </if>
-            <if test="pojo.insertTime != null"> `insert_time` = #{pojo.insertTime}, </if>
-            <if test="pojo.updateTime != null"> `update_time` = #{pojo.updateTime} </if>
+            <if test="pojo.ip != null"> `ip` = #{pojo.ip},</if>
+            <if test="pojo.method != null"> `method` = #{pojo.method},</if>
+            <if test="pojo.userId != null"> `user_id` = #{pojo.userId},</if>
+            <if test="pojo.insertAuthor != null"> `insert_author` = #{pojo.insertAuthor},</if>
+            <if test="pojo.updateAuthor != null"> `update_author` = #{pojo.updateAuthor},</if>
+            <if test="pojo.insertTime != null"> `insert_time` = #{pojo.insertTime},</if>
+            <if test="pojo.updateTime != null"> `update_time` = #{pojo.updateTime},</if>
+            <if test="pojo.url != null"> `url` = #{pojo.url},</if>
+            <if test="pojo.methodStartTime != null"> `method_start_time` = #{pojo.methodStartTime},</if>
+            <if test="pojo.methodEndTime != null"> `method_end_time` = #{pojo.methodEndTime},</if>
+            <if test="pojo.params != null"> `params` = #{pojo.params},</if>
+            <if test="pojo.result != null"> `result` = #{pojo.result},</if>
+            <if test="pojo.throwable != null"> `throwable` = #{pojo.throwable},</if>
+            <if test="pojo.throwableMessage != null"> `throwable_message` = #{pojo.throwableMessage}</if>
         </set>
         WHERE id = #{pojo.systemLogId}
     </update>

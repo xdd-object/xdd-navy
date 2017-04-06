@@ -1,10 +1,9 @@
 package com.java.xdd.system.mapper;
 
-import com.github.abel533.mapper.Mapper;
+import com.java.xdd.system.domain.SystemLog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import com.java.xdd.system.domain.SystemLog;
 
 public interface SystemLogMapper{
     int insert(@Param("pojo") SystemLog pojo);

@@ -16,7 +16,7 @@
 
 	<aop:config>
 		<aop:aspect ref="systemLogAspect">
-			<aop:pointcut id="log" expression="execution(* com.java.xdd.*.controller.*.*(..))"/>
+			<aop:pointcut id="log" expression="execution(* com.java.xdd.*.controller.*.*(..)) and !execution(* com.java.xdd.common.controller.QrcodeController.qrcodeContent(..))"/>
 			<aop:before method="doBefore" pointcut-ref="log"/>
 			<aop:after method="doAfter" pointcut-ref="log"/>
 			<aop:after-returning method="doAfterReturning" pointcut-ref="log" returning="obj"/>
