@@ -1,6 +1,5 @@
-package com.java.xdd.common.util;
+package com.java.xdd.common.httpclient;
 
-import org.apache.http.HttpClientConnection;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpRequest;
 import org.apache.http.NoHttpResponseException;
@@ -8,11 +7,11 @@ import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.conn.ConnectTimeoutException;
-import org.apache.http.impl.DefaultBHttpClientConnection;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.protocol.HttpContext;
 
 import javax.net.ssl.SSLException;
@@ -21,6 +20,12 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.UnknownHostException;
 
+/**
+ * 这个是代码配置httpclient
+ * 已使用Spring管理，可见配置文件
+ * 使用httpClientUtil的方法
+ */
+@Deprecated
 public class HttpClient {
     CloseableHttpClient client = HttpClients.createDefault();
     PoolingHttpClientConnectionManager manager;
@@ -92,10 +97,6 @@ public class HttpClient {
     }
 
     public void dd() {
-        HttpClientBuilder builder = HttpClientBuilder.create();
-        builder.setConnectionManager(manager);
-        CloseableHttpClient build = builder.build();
 
-        HttpClientConnection connection = new DefaultBHttpClientConnection(1);
     }
 }

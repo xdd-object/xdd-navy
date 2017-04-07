@@ -1,5 +1,6 @@
 package com.java.xdd.test;
 
+import com.java.xdd.common.httpclient.HttpClientUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 public class RedisTest {
     private ShardedJedis shardedJedis;
+    private HttpClientUtil httpClient;
     //private RedisService redisService;
 
     @Before
@@ -18,8 +20,19 @@ public class RedisTest {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
         context.start();
         ShardedJedisPool shardedJedisPool = (ShardedJedisPool)context.getBean("shardedJedisPool");
+        httpClient = (HttpClientUtil) context.getBean("httpClientUtil");
         //redisService = (RedisService)context.getBean("redisService");
         shardedJedis = shardedJedisPool.getResource();
+    }
+
+    @Test
+    public void test(){
+        try {
+            httpClient.doPost("http://192.168.1.49:4080/order/queryManufactureOrderNum", null);
+            System.out.println();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
