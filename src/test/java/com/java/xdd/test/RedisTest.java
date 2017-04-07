@@ -1,6 +1,7 @@
 package com.java.xdd.test;
 
 import com.java.xdd.common.httpclient.HttpClientUtil;
+import com.java.xdd.common.httpclient.HttpResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -28,7 +29,7 @@ public class RedisTest {
     @Test
     public void test(){
         try {
-            httpClient.doPost("http://192.168.1.49:4080/order/queryManufactureOrderNum", null);
+            HttpResult httpResult = httpClient.doPost("http://192.168.1.49:4080/order/queryManufactureOrderNum", null);
             System.out.println();
         } catch (Exception e) {
             e.printStackTrace();

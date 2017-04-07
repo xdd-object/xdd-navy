@@ -42,7 +42,10 @@
 	<!-- 请求参数设置 -->
 	<bean id="requestConfig" class="org.apache.http.client.config.RequestConfig" factory-bean="requestConfigBuilder" factory-method="build"/>
 
-	<bean id="httpclient" class="org.apache.http.impl.client.CloseableHttpClient" scope="prototype" factory-bean="httpClientBuilder" factory-method="build">
+	<bean id="httpclient" class="org.apache.http.impl.client.CloseableHttpClient" scope="prototype" factory-bean="httpClientBuilder" factory-method="build"/>
 
+	<!-- 定时清理无效连接 -->
+	<bean class="com.java.xdd.common.httpclient.IdleConnectionEvictor" destroy-method="shutdown">
+		<constructor-arg index="0" ref="httpClientConnectionManager"/>
 	</bean>
 </beans>

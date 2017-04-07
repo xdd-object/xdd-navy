@@ -131,6 +131,7 @@ app接口			139.129.233.211		root/Yishuju123!		app_xdd/app_xdd					app.1sju.com
 
 
 医数聚自己电脑
+RabbitMQ：账号：admin 密码：123456
 虚拟机Linux：账号：admin  密码：admin
 mysql： 账号：root  密码：123456
 
