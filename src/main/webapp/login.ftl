@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>登录页面</title>

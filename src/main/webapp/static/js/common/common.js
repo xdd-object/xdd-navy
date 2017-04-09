@@ -13,3 +13,4 @@ function uuid() {
 }
 
 var baseUrl = "http://127.0.0.1:2080";
+var basePath = "";
