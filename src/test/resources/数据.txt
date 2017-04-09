@@ -119,15 +119,7 @@ gitHub 账号：767403510@qq.com  密码：tf**jk87**32
 深圳社保：账号：qq767403510  密码：Abc123456
 facebook: 账号：767403510@qq.com  密码：abc87**32
 
-医数聚服务器账号
-service			139.129.231.154		root/Yishuju123!		service_xdd/service_xdd			service.1sju.com		
-后台			118.190.41.80		root/Yishuju123!		admin_xdd/admin_xdd				admin.1sju.com			https://admin.1sju.com/yishuju-admin/
-设计端			118.190.42.109		root/Yishuju123!		designer_xdd/designer_xdd		design.1sju.com			https://3dprint.1sju.com/yishuju-3d-print/
-3D打印中心		118.190.42.115		root/Yishuju123!		3dprint_xdd/3dprint_xdd			3dprint.1sju.com		https://app.1sju.com/yishuju-app/
-pc				139.129.243.147		root/Yishuju123!		pc_wzs/pc_wzs					www.1sju.com			https://www.1sju.com/yishuju-pc/
-app接口			139.129.233.211		root/Yishuju123!		app_xdd/app_xdd					app.1sju.com			
 
-数据库			139.129.231.154		db_user/123456
 
 
 医数聚自己电脑
@@ -247,13 +239,11 @@ SVN账号 ： ysjxdd  123456	  地址：https://192.168.1.129:8443/svn/ptymedtec
 https://192.168.1.129:8443/svn/ptymedtech/trunk/开发文档/接口文档.doc
 后台：http://192.168.1.40:3000/
 
-mysql连接：
-主机与端口：120.24.234.8:3306   用户名：ptymedtech   密码：123456
+
 
 input->placeholder属性，预显示
 
-Ping ++ 支付   ysjsz@qq.com    yishuju123
-网易云信的账号  wzs@1sju.com  Yishuju123!
+
 
 银联商户
 18588247094
