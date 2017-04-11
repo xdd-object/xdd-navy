@@ -55,19 +55,10 @@ public class CustomRealm extends AuthorizingRealm{
         // 从数据库查询到密码
         String password = user.getPassword();
         String salt = user.getSalt();//盐
-        try {
-            password = AESUtil.getInstance().decrypt(password);
-            password = password.substring(0, password.length() - 5);
-            password = DigestUtils.md5Hex(password + salt);
-        } catch (Exception e){
-
-        }
-
 
         // 如果查询到返回认证信息AuthenticationInfo
-
         //activeUser就是用户身份信息
-        User user2 = new User();
+        final User user2 = new User();
 
         user2.setId(user.getId());
         user2.setUsername(user.getUsername());

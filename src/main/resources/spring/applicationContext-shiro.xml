@@ -66,8 +66,8 @@
 
 	<!-- 凭证匹配器 -->
 	<bean id="credentialsMatcher" class="com.java.xdd.shiro.realm.CustomerHashedCredentialsMatcher">
-		<property name="hashAlgorithmName" value="md5" />
-		<property name="hashIterations" value="1" />
+		<!--<property name="hashAlgorithmName" value="md5" />
+		<property name="hashIterations" value="1" />-->
 	</bean>
 
 
