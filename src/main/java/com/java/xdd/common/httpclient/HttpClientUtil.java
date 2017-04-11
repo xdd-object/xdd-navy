@@ -1,25 +1,41 @@
 package com.java.xdd.common.httpclient;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpMessage;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 @Service("httpClientUtil")
 public class HttpClientUtil {
@@ -36,7 +52,7 @@ public class HttpClientUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public String doGet(String url, Map<String, Object> params) throws URISyntaxException, IOException{
+    public HttpResponse doGet(String url, Map<String, Object> params, Map<String, String> headers) throws URISyntaxException, IOException{
         CloseableHttpResponse response = null;
         try {
             URIBuilder uriBuilder = new URIBuilder(url);
@@ -45,19 +61,21 @@ public class HttpClientUtil {
                     uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
                 }
             }
-            HttpGet httpGet = new HttpGet(url);
+            HttpGet httpGet = new HttpGet(uriBuilder.build());
             httpGet.setConfig(this.requestConfig);
+            this.setRequestheaders(headers,httpGet);
             response = httpClient.execute(httpGet);
+            return response;
             // 判断返回状态是否为200
-            if (response.getStatusLine().getStatusCode() == 200) {
+            /*if (response.getStatusLine().getStatusCode() == 200) {
                 return EntityUtils.toString(response.getEntity(), "UTF-8");
-            }
+            }*/
         } finally {
             if (response != null) {
                 response.close();
             }
+            return null;
         }
-        return null;
     }
 
     /**
@@ -68,9 +86,10 @@ public class HttpClientUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public HttpResult doPost(String url, Map<String, Object> params) throws URISyntaxException, IOException{
+    public HttpResult doPost(String url, Map<String, Object> params, Map<String, String> headers) throws URISyntaxException, IOException{
         // 创建http POST请求
         HttpPost httpPost = new HttpPost(url);
+        this.setRequestheaders(headers, httpPost);
         httpPost.setConfig(this.requestConfig);
         if (params != null && !params.isEmpty()) {
             // 设置post参数
@@ -97,6 +116,7 @@ public class HttpClientUtil {
             if (response != null) {
                 response.close();
             }
+            return null;
         }
     }
 
@@ -108,9 +128,10 @@ public class HttpClientUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public HttpResult doPostJson(String url, String json) throws URISyntaxException, IOException{
+    public HttpResult doPostJson(String url, String json, Map<String, String> headers) throws URISyntaxException, IOException{
         // 创建http POST请求
         HttpPost httpPost = new HttpPost(url);
+        this.setRequestheaders(headers, httpPost);
         httpPost.setConfig(this.requestConfig);
         if (json != null) {
             // 构造一个字符串的实体
@@ -132,6 +153,7 @@ public class HttpClientUtil {
             if (response != null) {
                 response.close();
             }
+            return null;
         }
     }
 
@@ -143,9 +165,10 @@ public class HttpClientUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public HttpResult doPutJson(String url, String json) throws URISyntaxException, IOException{
+    public HttpResult doPutJson(String url, String json, Map<String, String> headers) throws URISyntaxException, IOException{
         // 创建http POST请求
         HttpPut httpPut = new HttpPut(url);
+        this.setRequestheaders(headers, httpPut);
         httpPut.setConfig(this.requestConfig);
         if (json != null) {
             // 构造一个字符串的实体
@@ -167,6 +190,7 @@ public class HttpClientUtil {
             if (response != null) {
                 response.close();
             }
+            return null;
         }
     }
 
@@ -178,9 +202,10 @@ public class HttpClientUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public HttpResult doPut(String url, Map<String, Object> params) throws URISyntaxException, IOException{
+    public HttpResult doPut(String url, Map<String, Object> params, Map<String, String> headers) throws URISyntaxException, IOException{
         // 创建http POST请求
         HttpPut httpPut = new HttpPut(url);
+        this.setRequestheaders(headers, httpPut);
         httpPut.setConfig(this.requestConfig);
         if (params != null) {
             // 设置post参数
@@ -207,6 +232,7 @@ public class HttpClientUtil {
             if (response != null) {
                 response.close();
             }
+            return null;
         }
     }
 
@@ -218,10 +244,10 @@ public class HttpClientUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public HttpResult doDelete(String url, Map<String, Object> params) throws URISyntaxException,IOException {
+    public HttpResult doDelete(String url, Map<String, Object> params, Map<String, String> headers) throws URISyntaxException,IOException {
         if (null == params) params = new HashMap<>();
         params.put("_method", "DELETE");
-        return this.doPost(url, params);
+        return this.doPost(url, params, headers);
     }
 
     /**
@@ -231,14 +257,15 @@ public class HttpClientUtil {
      * @throws URISyntaxException
      * @throws IOException
      */
-    public HttpResult doDelete(String url) throws URISyntaxException, IOException {
+    public HttpResult doDelete(String url, Map<String, String> headers) throws URISyntaxException, IOException {
         // 创建http DELETE请求
         HttpDelete httpDelete = new HttpDelete(url);
+        this.setRequestheaders(headers, httpDelete);
         httpDelete.setConfig(this.requestConfig);
         CloseableHttpResponse response = null;
         try {
             // 执行请求
-            response = httpClient.execute(httpDelete);
+             response = httpClient.execute(httpDelete);
             if (response.getEntity() != null) {
                 return new HttpResult(response.getStatusLine().getStatusCode(), EntityUtils.toString(
                         response.getEntity(), "UTF-8"));
@@ -248,8 +275,80 @@ public class HttpClientUtil {
             if (response != null) {
                 response.close();
             }
+            return null;
         }
     }
+
+    //设置http头
+    private void setRequestheaders(Map<String, String> headers, HttpMessage httpMessage){
+        if (null == httpMessage) return;
+        if (null != headers && !headers.isEmpty()) {
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                httpMessage.setHeader(entry.getKey(), entry.getValue());
+            }
+        }
+    }
+
+
+    //将httpClient(http)转成sslClient(https)
+    private static void sslClient(org.apache.http.client.HttpClient httpClient) {
+        try {
+            SSLContext ctx = SSLContext.getInstance("TLS");
+            X509TrustManager tm = new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+                public void checkClientTrusted(X509Certificate[] xcs, String str) {
+                }
+                public void checkServerTrusted(X509Certificate[] xcs, String str) {
+                }
+            };
+            ctx.init(null, new TrustManager[] { tm }, null);
+            SSLSocketFactory ssf = new SSLSocketFactory(ctx);
+            ssf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+            ClientConnectionManager ccm = httpClient.getConnectionManager();
+            SchemeRegistry registry = ccm.getSchemeRegistry();
+            registry.register(new Scheme("https", 443, ssf));
+        } catch (KeyManagementException ex) {
+            throw new RuntimeException(ex);
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+    public HttpResult aa(String url, Map<String, Object> params, Map<String, String> headers) throws URISyntaxException, IOException{
+        // 创建http POST请求
+        HttpPost httpPost = new HttpPost(url);
+        this.setRequestheaders(headers, httpPost);
+        httpPost.setConfig(this.requestConfig);
+        if (params != null && !params.isEmpty()) {
+            FileBody fileBody = new FileBody(new File("/"));
+            StringBody stringBody = new StringBody("", ContentType.MULTIPART_FORM_DATA);
+            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
+            entityBuilder.addPart("", fileBody);
+            entityBuilder.addPart("", stringBody);
+            HttpEntity build = entityBuilder.build();
+            httpPost.setEntity(build);
+        }
+
+        CloseableHttpResponse response = null;
+        try {
+            // 执行请求
+            response = httpClient.execute(httpPost);
+            if (response.getEntity() != null) {
+                return new HttpResult(response.getStatusLine().getStatusCode(), EntityUtils.toString(
+                        response.getEntity(), "UTF-8"));
+            }
+            return new HttpResult(response.getStatusLine().getStatusCode(), null);
+        } finally {
+            if (response != null) {
+                response.close();
+            }
+            return null;
+        }
+    }
+
 
 
 

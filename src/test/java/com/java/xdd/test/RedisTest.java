@@ -29,7 +29,7 @@ public class RedisTest {
     @Test
     public void test(){
         try {
-            HttpResult httpResult = httpClient.doPost("http://192.168.1.49:4080/order/queryManufactureOrderNum", null);
+            HttpResult httpResult = httpClient.doPost("http://192.168.1.49:4080/order/queryManufactureOrderNum", null, null);
             System.out.println();
         } catch (Exception e) {
             e.printStackTrace();
