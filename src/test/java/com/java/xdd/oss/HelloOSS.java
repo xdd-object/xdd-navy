@@ -50,7 +50,7 @@ public class HelloOSS {
     // accessKeyId和accessKeySecret是OSS的访问密钥，您可以在控制台上创建和查看，
     // 创建和查看访问密钥的链接地址是：https://ak-console.aliyun.com/#/。
     // 注意：accessKeyId和accessKeySecret前后都没有空格，从控制台复制时请检查并去除多余的空格。
-    private static String accessKeyId = "LTAIw5o7mxB4e7Ts";
+    private static String accessKeyId = "";
     private static String accessKeySecret = "Ll5CB4E4Fw3oVt9E2o2nSRrsWIhkV6";
 
     // Bucket用来管理所存储Object的存储空间，详细描述请参看“开发人员指南 > 基本概念 > OSS基本概念介绍”。
